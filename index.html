@@ -91,9 +91,13 @@
         this.yml = this.yml.replaceAll(";","    # ");
         this.yml = this.yml.replaceAll("[","  - !registryValue: {path: '");
         this.yml = this.yml.replaceAll(']\n"',"', value: '");
+        this.yml = this.yml.replaceAll('] \n"',"', value: '");
         this.yml = this.yml.replaceAll(']\n\n"',"', value: '");
+        this.yml = this.yml.replaceAll('] \n\n"',"', value: '");
         this.yml = this.yml.replaceAll(']\n@="',"', value: '', type: REG_SZ, data: '");
+        this.yml = this.yml.replaceAll('] \n@="',"', value: '', type: REG_SZ, data: '");
         this.yml = this.yml.replaceAll(']\n\n@="',"', value: '', type: REG_SZ, data: '");
+        this.yml = this.yml.replaceAll('] \n\n@="',"', value: '', type: REG_SZ, data: '");
         this.yml = this.yml.replaceAll('"=hex:',"', type: REG_BINARY, data: '");
         this.yml = this.yml.replaceAll('"=hex(2):',"', type: REG_EXPAND_SZ, data: '");
         this.yml = this.yml.replaceAll('"=hex(7):',"', type: REG_MULTI_SZ, data: '");
@@ -114,15 +118,19 @@
       // Join the modified lines back together
       this.yml = lines.join('\n');
 
+
+
+      // Split the current textarea content into lines
       const lines2 = this.yml.split('\n');
+      
+      // Iterate through each line and replace double quotes at the end (ignoring spaces)
       for (let i = 0; i < lines2.length; i++) {
-        const line = lines2[i];
-        // Check if the line ends with a double quotation mark (")
-        if (line.trim().endsWith('"')) {
-          // Replace the double quotation mark with your desired text
-          lines2[i] = line.replace(/"$/, "'}");
+        const trimmedLine = lines2[i].trim();
+        if (trimmedLine.endsWith('"')) {
+          lines2[i] = trimmedLine.replace(/"$/, "'}"); // Replace 'Your Text Here' with the desired text
         }
       }
+      
       // Join the modified lines back together
       this.yml = lines2.join('\n');
 
