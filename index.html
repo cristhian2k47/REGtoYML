@@ -127,8 +127,8 @@
         const line = lines[i];
         // Check if the line ends with a number
         if (/.*\d$/.test(line)) {
-          // Add your desired text at the end of the line (ignoring leading and trailing spaces)
-          lines[i] = line.trim() + "'}";
+          // Add your desired text at the end of the line
+          lines[i] = line + "'}";
         }
       }
       // Join the modified lines back together
