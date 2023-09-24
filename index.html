@@ -128,7 +128,7 @@
         // Check if the line ends with a number
         if (/.*\d$/.test(line)) {
           // Add your desired text at the end of the line
-          lines[i] = line + "'}";
+          lines[i] = line.trim() + "'}";
         }
       }
       // Join the modified lines back together
