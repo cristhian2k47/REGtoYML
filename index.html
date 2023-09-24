@@ -124,7 +124,7 @@
       
       // Iterate through each line and replace double quotes at the end (ignoring spaces)
       for (let i = 0; i < lines2.length; i++) {
-        const trimmedLine = lines2[i].trim();
+        const trimmedLine = lines2[i].trimEnd();
         if (trimmedLine.endsWith('"')) {
           lines2[i] = trimmedLine.replace(/"$/, "'}");
         }
