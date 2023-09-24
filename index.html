@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>REG to YML</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+.cmdtoyml-container {
+  max-width: 100%;
+}
+    </style>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark">
+    
+<div class="cmdtoyml-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+  </header>
+
+  <main id="app" class="px-3">
+    <div class="mb-3">
+    <label for="reg" class="form-label lead">.reg</label>
+<textarea v-model="reg" class="form-control" placeholder="Paste .reg file content here" id="reg" rows="15" style="resize: none;">
+</textarea>
+    </div>
+    <div class="mb-3">
+    <label for="yml" class="form-label lead">.yml</label>
+<textarea v-model="yml" class="form-control" id="yml" rows="15" onclick="this.select();" style="resize: none;" readonly>
+</textarea>
+    </div>
+  </main>
+
+  <footer class="mt-auto text-white-50">
+    <p><a href="https://ameliorated.io/" class="text-white" target="_blank">ameliorated.io</a></p>
+  </footer>
+</div>
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        reg: '',
+        yml: ''
+      }
+    },
+    updated() {
+        this.yml = this.reg;
+        this.yml = this.yml.trim();
+        this.yml = this.yml.replaceAll("Windows Registry Editor Version 5.00\n\n","");
+        this.yml = this.yml.replaceAll("Windows Registry Editor Version 5.00\n","");
+        this.yml = this.yml.replaceAll("Windows Registry Editor Version 5.00","");
+        this.yml = this.yml.replaceAll(/HKEY_CLASSES_ROOT/gi,"HKCR");
+        this.yml = this.yml.replaceAll(/HKEY_CURRENT_USER/gi,"HKCU");
+        this.yml = this.yml.replaceAll(/HKEY_LOCAL_MACHINE/gi,"HKLM");
+        this.yml = this.yml.replaceAll(/HKEY_USERS/gi,"HKU");
+        this.yml = this.yml.replaceAll(/HKEY_CURRENT_CONFIG/gi,"HKCC");
+        this.yml = this.yml.replaceAll(/software/gi,"SOFTWARE");
+        this.yml = this.yml.replaceAll("; ","    # ");
+        this.yml = this.yml.replaceAll(";","    # ");
+        this.yml = this.yml.replaceAll("[","  - !registryValue: {path: '");
+        this.yml = this.yml.replaceAll(']\n"',"', value: '");
+        this.yml = this.yml.replaceAll(']\n@="',"', value: '', type: REG_SZ, data: '");
+        this.yml = this.yml.replaceAll('"="',"', type: REG_SZ, data: '");
+        this.yml = this.yml.replaceAll(/"=dword:\b0{7}/gi, "', type: REG_DWORD, data: '");
+        this.yml = this.yml.replaceAll(/"=dword:\b0+/gi, "', type: REG_DWORD, data: '");
+        this.yml = this.yml.replaceAll(/"=dword:\b0{0}/gi, "', type: REG_DWORD, data: '");
+
+      const lines = this.yml.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        // Check if the line ends with a number
+        if (/.*\d$/.test(line)) {
+          // Add your desired text at the end of the line
+          lines[i] = line + "'}";
+        }
+      }
+      // Join the modified lines back together
+      this.yml = lines.join('\n');
+
+      const lines2 = this.yml.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines2[i];
+        // Check if the line ends with a double quotation mark (")
+        if (line.trim().endsWith('"')) {
+          // Replace the double quotation mark with your desired text
+          lines2[i] = line.replace(/"$/, "'}");
+        }
+      }
+      // Join the modified lines back together
+      this.yml = lines2.join('\n');
+
+    }
+  }).mount('#app')
+</script>
+
+  </body>
+</html>
