@@ -66,6 +66,9 @@
         this.yml = this.yml.replaceAll("[","  - !registryValue: {path: '");
         this.yml = this.yml.replaceAll(']\n"',"', value: '");
         this.yml = this.yml.replaceAll(']\n@="',"', value: '', type: REG_SZ, data: '");
+        this.yml = this.yml.replaceAll('"=hex:',"', type: REG_BINARY, data: '");
+        this.yml = this.yml.replaceAll('"=hex(2):',"', type: REG_EXPAND_SZ, data: '");
+        this.yml = this.yml.replaceAll('"=hex(7):',"', type: REG_MULTI_SZ, data: '");
         this.yml = this.yml.replaceAll('"="',"', type: REG_SZ, data: '");
         this.yml = this.yml.replaceAll(/"=dword:\b0{7}/gi, "', type: REG_DWORD, data: '");
         this.yml = this.yml.replaceAll(/"=dword:\b0+/gi, "', type: REG_DWORD, data: '");
