@@ -32,11 +32,11 @@
     <label for="yml" class="form-label lead">.yml</label>
 <textarea v-model="yml" class="form-control" id="yml" rows="14" onclick="this.select();" style="resize: none;" readonly>
 </textarea>
+<button class="form-control" @click="copyToClipboard">Copy</button>
     </div>
   </main>
 
   <footer class="mt-auto text-white-50">
-    <p><a href="https://ameliorated.io/" class="text-white" target="_blank">ameliorated.io</a></p>
   </footer>
 </div>
 
@@ -53,6 +53,22 @@
       methods: {
               clearTextarea() {
       this.reg = ''; // Clear the textarea by setting its value to an empty string
+    },
+    copyToClipboard() {
+      const textarea = document.getElementById('yml');
+
+      // Select the text in the textarea
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the selected text to the clipboard
+      document.execCommand('copy');
+
+      // Deselect the text
+      window.getSelection().removeAllRanges();
+
+      // Optionally, provide user feedback that the content was copied
+      alert('Copied to clipboard');
     },
     handleFileDrop(event) {
       event.preventDefault();
