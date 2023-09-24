@@ -24,13 +24,13 @@
   <main id="app" class="px-3">
     <div class="mb-3">
     <label for="reg" class="form-label lead">.reg</label>
-<textarea v-model="reg" @drop.prevent="handleFileDrop" class="form-control" placeholder="Drag .reg file here or paste registry tweaks" id="reg" rows="14" style="resize: none;">
+<textarea v-model="reg" @drop.prevent="handleFileDrop" class="form-control" placeholder="Drag .reg file here or paste registry tweaks" id="reg" rows="15" style="resize: none;">
 </textarea>
 <button class="form-control" @click="clearTextarea">Clear</button>
     </div>
     <div class="mb-3">
     <label for="yml" class="form-label lead">.yml</label>
-<textarea v-model="yml" class="form-control" id="yml" rows="14" onclick="this.select();" style="resize: none;" readonly>
+<textarea v-model="yml" class="form-control" id="yml" rows="15" onclick="this.select();" style="resize: none;" readonly>
 </textarea>
 <button class="form-control" @click="copyToClipboard">Copy</button>
     </div>
