@@ -56,6 +56,22 @@
       methods: {
               clearTextarea() {
       this.reg = ''; // Clear the textarea by setting its value to an empty string
+    },
+    copyToClipboard() {
+      const textarea = document.getElementById('yml');
+
+      // Select the text in the textarea
+      textarea.select();
+      textarea.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the selected text to the clipboard
+      document.execCommand('copy');
+
+      // Deselect the text
+      window.getSelection().removeAllRanges();
+
+      // Optionally, provide user feedback that the content was copied
+      alert('Copied to clipboard');
     }
   },
     updated() {
