@@ -24,12 +24,13 @@
   <main id="app" class="px-3">
     <div class="mb-3">
     <label for="reg" class="form-label lead">.reg</label>
-<textarea v-model="reg" class="form-control" placeholder="Paste .reg file content here" id="reg" rows="15" style="resize: none;">
+<textarea v-model="reg" @drop.prevent="handleFileDrop" class="form-control" placeholder="Drag .reg file here or paste registry tweaks" id="reg" rows="14" style="resize: none;">
 </textarea>
+<button class="form-control" @click="clearTextarea">Clear</button>
     </div>
     <div class="mb-3">
     <label for="yml" class="form-label lead">.yml</label>
-<textarea v-model="yml" class="form-control" id="yml" rows="15" onclick="this.select();" style="resize: none;" readonly>
+<textarea v-model="yml" class="form-control" id="yml" rows="14" onclick="this.select();" style="resize: none;" readonly>
 </textarea>
     </div>
   </main>
@@ -49,6 +50,31 @@
         yml: ''
       }
     },
+      methods: {
+              clearTextarea() {
+      this.reg = ''; // Clear the textarea by setting its value to an empty string
+    },
+    handleFileDrop(event) {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+
+      if (files.length > 0) {
+        const file = files[0];
+
+        if (file.name.endsWith(".reg")) {
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            this.reg = reader.result;
+          };
+
+          reader.readAsText(file);
+        } else {
+          alert("Please drop a .reg file.");
+        }
+      }
+    },
+  },
     updated() {
         this.yml = this.reg;
         this.yml = this.yml.trim();
