@@ -127,7 +127,7 @@
         const line = lines[i];
         // Check if the line ends with a number
         if (/.*\d$/.test(line)) {
-          // Add your desired text at the end of the line
+          // Add your desired text at the end of the line (ignoring leading and trailing spaces)
           lines[i] = line.trim() + "'}";
         }
       }
@@ -143,7 +143,7 @@
       for (let i = 0; i < lines2.length; i++) {
         const trimmedLine = lines2[i].trim();
         if (trimmedLine.endsWith('"')) {
-          lines2[i] = trimmedLine.replace(/"$/, "'}"); // Replace 'Your Text Here' with the desired text
+          lines2[i] = trimmedLine.replace(/"$/, "'}");
         }
       }
       
