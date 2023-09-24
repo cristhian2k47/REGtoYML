@@ -24,14 +24,14 @@
   <main id="app" class="px-3">
   <div class="row">
     <div class="col">
-    <label for="reg" class="form-label lead">.reg</label>
-<textarea v-model="reg" @drop.prevent="handleFileDrop" class="form-control" wrap="off" placeholder="Drag .reg file here or paste registry tweaks" id="reg" rows="25" style="resize: none;">
+    <label for="reg" class="form-label lead">Input [REG]</label>
+<textarea v-model="reg" class="form-control" wrap="off" placeholder='E.g.&#10;&#10;; Disable Game Bar Tips&#10;[HKEY_CURRENT_USER\Software\Microsoft\GameBar]&#10;"ShowStartupPanel"=dword:00000000' id="reg" rows="25" style="resize: none;">
 </textarea>
 <button class="form-control" @click="clearTextarea">Clear</button>
     </div>
     <div class="col">
-    <label for="yml" class="form-label lead">.yml</label>
-<textarea v-model="yml" class="form-control" id="yml" rows="25" wrap="off" onclick="this.select();" style="resize: none;" readonly>
+    <label for="yml" class="form-label lead">Output [YML]</label>
+<textarea v-model="yml" class="form-control" wrap="off" placeholder="E.g.&#10;&#10;    # Disable Game Bar Tips&#10;  - !registryValue: {path: 'HKCU\SOFTWARE\Microsoft\GameBar', value: 'ShowStartupPanel', type: REG_DWORD, data: '0'}" id="yml" rows="25" style="resize: none;" onclick="this.select();" readonly>
 </textarea>
 <button class="form-control" @click="copyToClipboard">Copy</button>
     </div>
@@ -56,43 +56,7 @@
       methods: {
               clearTextarea() {
       this.reg = ''; // Clear the textarea by setting its value to an empty string
-    },
-    copyToClipboard() {
-      const textarea = document.getElementById('yml');
-
-      // Select the text in the textarea
-      textarea.select();
-      textarea.setSelectionRange(0, 99999); // For mobile devices
-
-      // Copy the selected text to the clipboard
-      document.execCommand('copy');
-
-      // Deselect the text
-      window.getSelection().removeAllRanges();
-
-      // Optionally, provide user feedback that the content was copied
-      alert('Copied to clipboard');
-    },
-    handleFileDrop(event) {
-      event.preventDefault();
-      const files = event.dataTransfer.files;
-
-      if (files.length > 0) {
-        const file = files[0];
-
-        if (file.name.endsWith(".reg")) {
-          const reader = new FileReader();
-
-          reader.onload = () => {
-            this.reg = reader.result;
-          };
-
-          reader.readAsText(file);
-        } else {
-          alert("Please drop a .reg file.");
-        }
-      }
-    },
+    }
   },
     updated() {
         this.yml = this.reg;
