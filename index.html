@@ -30,7 +30,7 @@
     </div>
     <div class="mb-3">
     <label for="yml" class="form-label lead">.yml</label>
-<textarea v-model="yml" class="form-control" id="yml" rows="15" onclick="this.select();" style="resize: none;" readonly>
+<textarea v-model="yml" class="form-control" id="yml" placeholder='DOES NOT WORK WITH MULTIPLE VALUES IN A SINGLE KEY:&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseSpeed"="0"&#10;"MouseThreshold1"="0"&#10;"MouseThreshold2"="0"&#10;&#10;USE THIS INSTEAD:&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseSpeed"="0"&#10;&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseThreshold1"="0"&#10;&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseThreshold2"="0"' rows="15" onclick="this.select();" style="resize: none;" readonly>
 </textarea>
 <button class="form-control" @click="copyToClipboard">Copy</button>
     </div>
