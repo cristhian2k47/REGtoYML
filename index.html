@@ -108,7 +108,7 @@
 
       const lines = this.yml.split('\n');
       for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
+        const line = lines[i].trimEnd();
         // Check if the line ends with a number
         if (/.*\d$/.test(line)) {
           // Add your desired text at the end of the line
