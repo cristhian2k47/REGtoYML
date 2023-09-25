@@ -76,10 +76,8 @@
   },
     updated() {
         this.yml = this.reg;
-        this.yml = this.yml.trim();
-        this.yml = this.yml.replaceAll("Windows Registry Editor Version 5.00\n\n","");
-        this.yml = this.yml.replaceAll("Windows Registry Editor Version 5.00\n","");
         this.yml = this.yml.replaceAll("Windows Registry Editor Version 5.00","");
+        this.yml = this.yml.trim();
         this.yml = this.yml.replaceAll(/HKEY_CLASSES_ROOT/gi,"HKCR");
         this.yml = this.yml.replaceAll(/HKEY_CURRENT_USER/gi,"HKCU");
         this.yml = this.yml.replaceAll(/HKEY_LOCAL_MACHINE/gi,"HKLM");
@@ -135,6 +133,23 @@
       
       // Join the modified lines back together
       this.yml = lines2.join('\n');
+
+
+
+ 
+// Split the textarea content into an array of lines
+const lines3 = this.yml.split('\n');
+
+// Filter out lines that start with '  -' or '    # ' (ignoring leading spaces) or are empty
+const filteredLines = lines3.filter(line => {
+  const trimmedLine = line.trim();
+  return trimmedLine === '' || trimmedLine.startsWith('-') || trimmedLine.startsWith('#');
+});
+
+// Join the filtered lines back together with newline characters
+this.yml = filteredLines.join('\n');
+
+
 
     }
   }).mount('#app')
