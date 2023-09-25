@@ -99,6 +99,7 @@
         this.yml = this.yml.replaceAll(']\n\n@="',"', value: '', type: REG_SZ, data: '");
         this.yml = this.yml.replaceAll('] \n\n@="',"', value: '', type: REG_SZ, data: '");
         this.yml = this.yml.replaceAll("]","', operation: 'delete'}");
+        this.yml = this.yml.replaceAll('"=-',"', operation: 'delete'}");
         this.yml = this.yml.replaceAll('"=hex:',"', type: REG_BINARY, data: '");
         this.yml = this.yml.replaceAll('"=hex(2):',"', type: REG_EXPAND_SZ, data: '");
         this.yml = this.yml.replaceAll('"=hex(7):',"', type: REG_MULTI_SZ, data: '");
