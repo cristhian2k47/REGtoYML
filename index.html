@@ -1,13 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-100" data-bs-theme="dark">
   <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>REG to YML · Ameliorated.io</title>
-    
-<link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -16,40 +13,34 @@
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
         }
       }
-
       .b-example-divider {
         width: 100%;
         height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
+        background-color: rgba(0, 0, 0, 0.1);
+        border: solid rgba(0, 0, 0, 0.15);
         border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1), inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
       }
-
       .b-example-vr {
         flex-shrink: 0;
         width: 1.5rem;
         height: 100vh;
       }
-
       .bi {
-        vertical-align: -.125em;
+        vertical-align: -0.125em;
         fill: currentColor;
       }
-
       .nav-scroller {
         position: relative;
         z-index: 2;
         height: 2.75rem;
         overflow-y: hidden;
       }
-
       .nav-scroller .nav {
         display: flex;
         flex-wrap: nowrap;
@@ -60,11 +51,9 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-
       .btn-bd-primary {
         --bd-violet-bg: #712cf9;
         --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
         --bs-btn-font-weight: 600;
         --bs-btn-color: var(--bs-white);
         --bs-btn-bg: var(--bd-violet-bg);
@@ -77,123 +66,137 @@
         --bs-btn-active-bg: #5a23c8;
         --bs-btn-active-border-color: #5a23c8;
       }
-
       .bd-mode-toggle {
         z-index: 1500;
       }
-
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+      /* Adjustments */
+      html,
+      body {
+        height: 100%;
+      }
+      #app {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .form-group {
+        flex-grow: 1; /* Fill remaining height */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .form-control.textarea {
+        flex-grow: 1; /* Fill available space */
+        resize: none; /* Disable textarea resizing */
+      }
     </style>
-
-    
     <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/5.3/examples/cover/cover.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/examples/cover/cover.css" rel="stylesheet" />
   </head>
   <body class="d-flex h-100 text-center">
-
-<div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="mb-auto">
-  </header>
-
-  <main id="app" class="px-3">
-  <div class="row">
-    <div class="col-5">
-    <label for="registryInput" class="form-label lead">Input [REG]</label>
-<textarea wrap="off" class="form-control" placeholder='; Disable Mouse Acceleration&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseSpeed"="0"&#10;"MouseThreshold1"="0"&#10;"MouseThreshold2"="0"&#10;&#10;; Disable Game Bar Tips&#10;[HKEY_CURRENT_USER\Software\Microsoft\GameBar]&#10;"ShowStartupPanel"=dword:00000000' id="registryInput" oninput="convertRegistryString()" rows="25" cols="20" style="resize: none;">
-</textarea>
-<input class="form-control" type="file" id="fileInput" accept=".reg" onchange="importRegistryFile(event)">
+    <div class="d-flex w-100 p-3 mx-auto flex-column">
+      <main id="app" class="px-3">
+        <div class="mb-4 form-group">
+          <textarea
+            class="form-control textarea"
+            placeholder='; Disable Mouse Acceleration&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseSpeed"="0"&#10;"MouseThreshold1"="0"&#10;"MouseThreshold2"="0"&#10;&#10;; Disable Game Bar Tips&#10;[HKEY_CURRENT_USER\Software\Microsoft\GameBar]&#10;"ShowStartupPanel"=dword:00000000'
+            id="registryInput"
+            oninput="convertRegistryString()"
+            style="resize: none;"
+          ></textarea>
+          <input class="form-control" type="file" id="fileInput" accept=".reg" onchange="importRegistryFile(event)" />
+        </div>
+        <div class="form-group">
+          <textarea
+            class="form-control textarea"
+            placeholder="    # Disable Mouse Acceleration&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseSpeed', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold1', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0'}&#10;&#10;    # Disable Game Bar Tips&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Software\Microsoft\GameBar', value: 'ShowStartupPanel', type: REG_DWORD, data: '0'}"
+            id="convertedOutput"
+            style="resize: none;"
+            readonly
+          ></textarea>
+          <button class="form-control" onclick="copyConvertedOutput()">Copy</button>
+        </div>
+      </main>
     </div>
-    <div class="col">
-    <label for="convertedOutput" class="form-label lead">Output [YML]</label>
-<textarea wrap="off" class="form-control" placeholder="    # Disable Mouse Acceleration&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseSpeed', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold1', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0'}&#10;&#10;    # Disable Game Bar Tips&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Software\Microsoft\GameBar', value: 'ShowStartupPanel', type: REG_DWORD, data: '0'}" id="convertedOutput" rows="25" style="resize: none;" onclick="this.select();" readonly>
-</textarea>
-<button class="form-control" onclick="copyConvertedOutput()">Copy</button>
-    </div>
-  </div>
-  </main>
+    <script>
+      function convertRegistryString() {
+        var input = document.getElementById("registryInput").value;
+        var lines = input.split("\n");
+        var output = "";
+        var path = ""; // Initialize path variable
+        var comment = ""; // Initialize comment variable
 
-  <footer class="mt-auto text-white-50">
-    <p><a href="https://ameliorated.io/" class="text-white" target="_blank">Ameliorated.io</a></p>
-  </footer>
-</div>
+        for (var i = 0; i < lines.length; i++) {
+          var line = lines[i].trim();
 
-<script>
-function convertRegistryString() {
-    var input = document.getElementById("registryInput").value;
-    var lines = input.split('\n');
-    var output = "";
-    var path = ""; // Initialize path variable
-    var comment = ""; // Initialize comment variable
-    
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-
-        // Check if the line is a comment
-        if (line.startsWith(';')) {
+          // Check if the line is a comment
+          if (line.startsWith(";")) {
             comment = line.substring(1).trim(); // Remove ';' and trim whitespace
-            if (output !== "") { // Add paragraph break unless it's the first path
-                output += "\n";
+            if (output !== "") {
+              // Add paragraph break unless it's the first path
+              output += "\n";
             }
             output += "    # " + comment + ""; // Add comment to output
             continue;
-        }
+          }
 
-        // Check if the line matches the expected format
-        var regEntryRegex = /^\[HKEY_[^\]]+\]$/;
-        if (!regEntryRegex.test(line) && !line.startsWith('"')) {
+          // Check if the line matches the expected format
+          var regEntryRegex = /^\[HKEY_[^\]]+\]$/;
+          if (!regEntryRegex.test(line) && !line.startsWith('"')) {
             // Ignore lines that don't match the expected format
             continue;
-        }
+          }
 
-        if (line.startsWith("[HKEY_")) {
-            if (output !== "") { // Add paragraph break unless it's the first path
-                output += "\n";
+          if (line.startsWith("[HKEY_")) {
+            if (output !== "") {
+              // Add paragraph break unless it's the first path
+              output += "\n";
             }
             path = line.substring(1, line.length - 1);
             continue;
-        }
-        if (line.length === 0) continue;
-        var parts = line.split('=');
-        var value = parts[0].trim().replace(/"/g, '');
-        var data = parts[1].trim();
-        
-        if (data.startsWith("dword:")) {
-            var hexData = data.split(':')[1].trim(); // Extract hex data
+          }
+          if (line.length === 0) continue;
+          var parts = line.split("=");
+          var value = parts[0].trim().replace(/"/g, "");
+          var data = parts[1].trim();
+
+          if (data.startsWith("dword:")) {
+            var hexData = data.split(":")[1].trim(); // Extract hex data
             var decimalData = parseInt(hexData, 16); // Convert hex to decimal
             output += "  - !registryValue: {path: '" + path + "', value: '" + value + "', type: REG_DWORD, data: '" + decimalData + "'}\n";
-        } else if (data.startsWith('"') && data.endsWith('"')) {
+          } else if (data.startsWith('"') && data.endsWith('"')) {
             var stringValue = data.substring(1, data.length - 1); // Remove double quotes
             output += "  - !registryValue: {path: '" + path + "', value: '" + value + "', type: REG_SZ, data: '" + stringValue + "'}\n";
+          }
         }
-    }
-    
-    document.getElementById("convertedOutput").value = output;
-}
 
+        // Trim output to remove the paragraph break at the end
+        output = output.trimEnd();
 
+        document.getElementById("convertedOutput").value = output;
+      }
 
+      function copyConvertedOutput() {
+        var convertedOutput = document.getElementById("convertedOutput");
+        convertedOutput.select();
+        document.execCommand("copy");
+      }
 
-function copyConvertedOutput() {
-    var convertedOutput = document.getElementById("convertedOutput");
-    convertedOutput.select();
-    document.execCommand("copy");
-}
-
-function importRegistryFile(event) {
-    var file = event.target.files[0];
-    if (file) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
+      function importRegistryFile(event) {
+        var file = event.target.files[0];
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
             var contents = e.target.result;
             document.getElementById("registryInput").value = contents;
             convertRegistryString(); // Trigger conversion after updating textarea
-        };
-        reader.readAsText(file);
-    }
-}
-</script>
-
-    </body>
+          };
+          reader.readAsText(file);
+        }
+      }
+    </script>
+  </body>
 </html>
