@@ -101,13 +101,13 @@
   <div class="row">
     <div class="col-5">
     <label for="registryInput" class="form-label lead">Input [REG]</label>
-<textarea class="form-control" placeholder='; Disable Mouse Acceleration&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseSpeed"="0"&#10;"MouseThreshold1"="0"&#10;"MouseThreshold2"="0"&#10;&#10;; Disable Game Bar Tips&#10;[HKEY_CURRENT_USER\Software\Microsoft\GameBar]&#10;"ShowStartupPanel"=dword:00000000' id="registryInput" oninput="convertRegistryString()" rows="25" cols="20" style="resize: none;">
+<textarea wrap="off" class="form-control" placeholder='; Disable Mouse Acceleration&#10;[HKEY_CURRENT_USER\Control Panel\Mouse]&#10;"MouseSpeed"="0"&#10;"MouseThreshold1"="0"&#10;"MouseThreshold2"="0"&#10;&#10;; Disable Game Bar Tips&#10;[HKEY_CURRENT_USER\Software\Microsoft\GameBar]&#10;"ShowStartupPanel"=dword:00000000' id="registryInput" oninput="convertRegistryString()" rows="25" cols="20" style="resize: none;">
 </textarea>
 <input class="form-control" type="file" id="fileInput" accept=".reg" onchange="importRegistryFile(event)">
     </div>
     <div class="col">
     <label for="convertedOutput" class="form-label lead">Output [YML]</label>
-<textarea class="form-control" placeholder="    # Disable Mouse Acceleration&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseSpeed', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold1', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0'}&#10;&#10;    # Disable Game Bar Tips&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Software\Microsoft\GameBar', value: 'ShowStartupPanel', type: REG_DWORD, data: '0'}" id="convertedOutput" rows="25" style="resize: none;" onclick="this.select();" readonly>
+<textarea wrap="off" class="form-control" placeholder="    # Disable Mouse Acceleration&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseSpeed', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold1', type: REG_SZ, data: '0'}&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Control Panel\Mouse', value: 'MouseThreshold2', type: REG_SZ, data: '0'}&#10;&#10;    # Disable Game Bar Tips&#10;  - !registryValue: {path: 'HKEY_CURRENT_USER\Software\Microsoft\GameBar', value: 'ShowStartupPanel', type: REG_DWORD, data: '0'}" id="convertedOutput" rows="25" style="resize: none;" onclick="this.select();" readonly>
 </textarea>
 <button class="form-control" onclick="copyConvertedOutput()">Copy</button>
     </div>
