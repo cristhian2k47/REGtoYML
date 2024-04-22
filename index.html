@@ -161,7 +161,7 @@ function convertRegistryString() {
         
         if (data.startsWith("dword:")) {
             var hexData = data.split(':')[1].trim(); // Extract hex data
-            var decimalData = parseInt(hexData, 10); // Convert hex to decimal
+            var decimalData = parseInt(hexData, 16); // Convert hex to decimal
             output += "  - !registryValue: {path: '" + path + "', value: '" + value + "', type: REG_DWORD, data: '" + decimalData + "'}\n";
         } else if (data.startsWith('"') && data.endsWith('"')) {
             var stringValue = data.substring(1, data.length - 1); // Remove double quotes
