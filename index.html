@@ -140,13 +140,12 @@ function convertRegistryString() {
             continue;
         }
 
-// Check if the line matches the expected format
-var regEntryRegex = /^\[(-|)HKEY_[^\]]+\]$/;
-if (!regEntryRegex.test(line) && !line.startsWith('"')) {
-    // Ignore lines that don't match the expected format
-    continue;
-}
-
+        // Check if the line matches the expected format
+        var regEntryRegex = /^\[(-|)HKEY_[^\]]+\]$/;
+        if (!regEntryRegex.test(line) && !line.startsWith('"')) {
+            // Ignore lines that don't match the expected format
+            continue;
+        }
 
         if (line.startsWith("[HKEY_")) {
             if (output !== "") { // Add paragraph break unless it's the first path
@@ -156,12 +155,11 @@ if (!regEntryRegex.test(line) && !line.startsWith('"')) {
             continue;
         }
 
-if (line.startsWith("[-HKEY")) {
-    var newPath = line.substring(2, line.length - 1).replace("HKEY_LOCAL_MACHINE\\", "HKLM\\").replace("HKEY_CURRENT_USER\\", "HKCU\\"); // // Remove the hyphen and replace HKEY_LOCAL_MACHINE with HKLM and HKEY_CURRENT_USER with HKCU
-    output += "  !registryKey: {path: '" + newPath + "'}\n";
-    continue;
-}
-
+        if (line.startsWith("[-HKEY")) {
+            var newPath = line.substring(2, line.length - 1).replace("HKEY_LOCAL_MACHINE\\", "HKLM\\").replace("HKEY_CURRENT_USER\\", "HKCU\\"); // // Remove the hyphen and replace HKEY_LOCAL_MACHINE with HKLM and HKEY_CURRENT_USER with HKCU
+            output += "  !registryKey: {path: '" + newPath + "'}\n";
+            continue;
+        }
 
         if (line.length === 0) continue;
         var parts = line.split('=');
@@ -174,6 +172,7 @@ if (line.startsWith("[-HKEY")) {
             output += "  - !registryValue: {path: '" + path + "', value: '" + value + "', type: REG_DWORD, data: '" + decimalData + "'}\n";
         } else if (data.startsWith('"') && data.endsWith('"')) {
             var stringValue = data.substring(1, data.length - 1); // Remove double quotes
+            stringValue = stringValue.replace(/\\"/g, '"'); // Remove backslashes before double quotes
             output += "  - !registryValue: {path: '" + path + "', value: '" + value + "', type: REG_SZ, data: '" + stringValue + "'}\n";
         }
     }
