@@ -173,6 +173,7 @@ function convertRegistryString() {
         } else if (data.startsWith('"') && data.endsWith('"')) {
             var stringValue = data.substring(1, data.length - 1); // Remove double quotes
             stringValue = stringValue.replace(/\\"/g, '"'); // Remove backslashes before double quotes
+            stringValue = stringValue.replace(/\\\\/g, '\\'); // Treat double backslashes as single backslashes
             output += "  - !registryValue: {path: '" + path + "', value: '" + value + "', type: REG_SZ, data: '" + stringValue + "'}\n";
         }
     }
