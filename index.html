@@ -140,6 +140,11 @@ function convertRegistryString() {
             continue;
         }
 
+        // Handle special cases where @=" should be treated as ""="
+        if (line.includes('@="')) {
+            line = line.replace('@="', '""="');
+        }
+      
         // Check if the line matches the expected format
         var regEntryRegex = /^\[(-|)HKEY_[^\]]+\]$/;
         if (!regEntryRegex.test(line) && !line.startsWith('"')) {
