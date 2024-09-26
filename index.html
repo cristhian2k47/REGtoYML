@@ -139,7 +139,7 @@
             output += "\n";
           }
           var newPath = line.substring(2, line.length - 1).replace("HKEY_LOCAL_MACHINE\\", "HKLM\\").replace("HKEY_CURRENT_USER\\", "HKCU\\");
-          output += "  !registryKey: {path: '" + newPath + "'}\n";
+          output += "  - !registryKey: {path: '" + newPath + "'}\n";
           continue;
         }
 
